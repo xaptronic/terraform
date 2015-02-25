@@ -277,6 +277,7 @@ type ResourceAttrDiff struct {
 	NewExtra    interface{} // Extra information for the provider
 	RequiresNew bool        // True if change requires new resource
 	Type        DiffAttrType
+	Source      DiffSource // Source is a bitmask of where this data is set
 }
 
 func (d *ResourceAttrDiff) GoString() string {
