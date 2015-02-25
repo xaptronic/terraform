@@ -6,7 +6,10 @@ package terraform
 type DiffSource int
 
 const (
-	DiffSourceInvalid DiffSource = 0
-	DiffSourceConfig  DiffSource = 1 << iota
+	DiffSourceUnset  DiffSource = 0
+	DiffSourceConfig DiffSource = 1 << iota
 	DiffSourceState
 )
+
+// DiffSource has more methods defined in diff.go. We can't put them
+// here because then stringer won't work.

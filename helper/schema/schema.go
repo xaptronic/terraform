@@ -279,7 +279,11 @@ func (m schemaMap) Diff(
 			}
 
 			if s != nil {
-				attr.Old = s.Attributes[k]
+				v, ok := s.Attributes[k]
+				attr.Old = v
+				if ok {
+					attr.Source |= terraform.DiffSourceState
+				}
 			}
 		}
 
@@ -534,6 +538,7 @@ func (m schemaMap) diffList(
 		diff.Attributes[k+".#"] = &terraform.ResourceAttrDiff{
 			Old:         oldStr,
 			NewComputed: true,
+			Source:      d.diffSource(k),
 		}
 		return nil
 	}
@@ -556,8 +561,9 @@ func (m schemaMap) diffList(
 		}
 
 		diff.Attributes[k+".#"] = countSchema.finalizeDiff(&terraform.ResourceAttrDiff{
-			Old: oldStr,
-			New: newStr,
+			Old:    oldStr,
+			New:    newStr,
+			Source: d.diffSource(k),
 		})
 	}
 
@@ -648,8 +654,9 @@ func (m schemaMap) diffMap(
 
 		diff.Attributes[k+".#"] = countSchema.finalizeDiff(
 			&terraform.ResourceAttrDiff{
-				Old: oldStr,
-				New: newStr,
+				Old:    oldStr,
+				New:    newStr,
+				Source: d.diffSource(k),
 			},
 		)
 	}
@@ -668,15 +675,22 @@ func (m schemaMap) diffMap(
 			continue
 		}
 
+		source := terraform.DiffSourceConfig
+		if ok {
+			source |= terraform.DiffSourceState
+		}
+
 		diff.Attributes[prefix+k] = schema.finalizeDiff(&terraform.ResourceAttrDiff{
-			Old: old,
-			New: v,
+			Old:    old,
+			New:    v,
+			Source: source,
 		})
 	}
 	for k, v := range stateMap {
 		diff.Attributes[prefix+k] = schema.finalizeDiff(&terraform.ResourceAttrDiff{
 			Old:        v,
 			NewRemoved: true,
+			Source:     terraform.DiffSourceState,
 		})
 	}
 
@@ -744,6 +758,7 @@ func (m schemaMap) diffSet(
 		diff.Attributes[k+".#"] = &terraform.ResourceAttrDiff{
 			Old:         countStr,
 			NewComputed: true,
+			Source:      d.diffSource(k),
 		}
 		return nil
 	}
@@ -758,8 +773,9 @@ func (m schemaMap) diffSet(
 		}
 
 		diff.Attributes[k+".#"] = countSchema.finalizeDiff(&terraform.ResourceAttrDiff{
-			Old: oldStr,
-			New: newStr,
+			Old:    oldStr,
+			New:    newStr,
+			Source: d.diffSource(k),
 		})
 	}
 
@@ -847,6 +863,7 @@ func (m schemaMap) diffString(
 		New:        ns,
 		NewExtra:   originalN,
 		NewRemoved: removed,
+		Source:     d.diffSource(k),
 	})
 
 	return nil

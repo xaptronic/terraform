@@ -5,13 +5,13 @@ package terraform
 import "fmt"
 
 const (
-	_DiffSource_name_0 = "DiffSourceInvalid"
+	_DiffSource_name_0 = "DiffSourceUnset"
 	_DiffSource_name_1 = "DiffSourceConfig"
 	_DiffSource_name_2 = "DiffSourceState"
 )
 
 var (
-	_DiffSource_index_0 = [...]uint8{0, 17}
+	_DiffSource_index_0 = [...]uint8{0, 15}
 	_DiffSource_index_1 = [...]uint8{0, 16}
 	_DiffSource_index_2 = [...]uint8{0, 15}
 )

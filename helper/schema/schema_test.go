@@ -158,6 +158,7 @@ func TestSchemaMap_Diff(t *testing.T) {
 						Old:         "",
 						New:         "foo",
 						RequiresNew: true,
+						Source:      terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -238,8 +239,9 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"availability_zone": &terraform.ResourceAttrDiff{
-						Old: "foo",
-						New: "bar",
+						Old:    "foo",
+						New:    "bar",
+						Source: terraform.DiffSourceConfig | terraform.DiffSourceState,
 					},
 				},
 			},
@@ -264,8 +266,9 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"availability_zone": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "foo",
+						Old:    "",
+						New:    "foo",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -292,8 +295,9 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"availability_zone": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "foo",
+						Old:    "",
+						New:    "foo",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -322,8 +326,9 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"availability_zone": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "bar",
+						Old:    "",
+						New:    "bar",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -356,6 +361,7 @@ func TestSchemaMap_Diff(t *testing.T) {
 						Old:      "",
 						New:      "foo!",
 						NewExtra: "foo",
+						Source:   terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -385,8 +391,9 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"availability_zone": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "bar",
+						Old:    "",
+						New:    "bar",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -416,8 +423,9 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"availability_zone": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "${var.foo}",
+						Old:    "",
+						New:    "${var.foo}",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -452,6 +460,7 @@ func TestSchemaMap_Diff(t *testing.T) {
 						Old:         "",
 						New:         "27",
 						RequiresNew: true,
+						Source:      terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -486,6 +495,7 @@ func TestSchemaMap_Diff(t *testing.T) {
 						Old:         "",
 						New:         "0",
 						RequiresNew: true,
+						Source:      terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -543,20 +553,24 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"ports.#": &terraform.ResourceAttrDiff{
-						Old: "0",
-						New: "3",
+						Old:    "0",
+						New:    "3",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ports.0": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "1",
+						Old:    "",
+						New:    "1",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ports.1": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "2",
+						Old:    "",
+						New:    "2",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ports.2": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "5",
+						Old:    "",
+						New:    "5",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -587,20 +601,24 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"ports.#": &terraform.ResourceAttrDiff{
-						Old: "0",
-						New: "3",
+						Old:    "0",
+						New:    "3",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ports.0": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "1",
+						Old:    "",
+						New:    "1",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ports.1": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "2",
+						Old:    "",
+						New:    "2",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ports.2": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "5",
+						Old:    "",
+						New:    "5",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -635,6 +653,7 @@ func TestSchemaMap_Diff(t *testing.T) {
 						Old:         "0",
 						New:         "",
 						NewComputed: true,
+						Source:      terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -695,12 +714,14 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"ports.#": &terraform.ResourceAttrDiff{
-						Old: "2",
-						New: "3",
+						Old:    "2",
+						New:    "3",
+						Source: terraform.DiffSourceConfig | terraform.DiffSourceState,
 					},
 					"ports.2": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "5",
+						Old:    "",
+						New:    "5",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -731,21 +752,25 @@ func TestSchemaMap_Diff(t *testing.T) {
 						Old:         "0",
 						New:         "3",
 						RequiresNew: true,
+						Source:      terraform.DiffSourceConfig,
 					},
 					"ports.0": &terraform.ResourceAttrDiff{
 						Old:         "",
 						New:         "1",
 						RequiresNew: true,
+						Source:      terraform.DiffSourceConfig,
 					},
 					"ports.1": &terraform.ResourceAttrDiff{
 						Old:         "",
 						New:         "2",
 						RequiresNew: true,
+						Source:      terraform.DiffSourceConfig,
 					},
 					"ports.2": &terraform.ResourceAttrDiff{
 						Old:         "",
 						New:         "5",
 						RequiresNew: true,
+						Source:      terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -806,20 +831,24 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"ports.#": &terraform.ResourceAttrDiff{
-						Old: "0",
-						New: "3",
+						Old:    "0",
+						New:    "3",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ports.1": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "1",
+						Old:    "",
+						New:    "1",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ports.2": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "2",
+						Old:    "",
+						New:    "2",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ports.5": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "5",
+						Old:    "",
+						New:    "5",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -910,20 +939,24 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"ports.#": &terraform.ResourceAttrDiff{
-						Old: "0",
-						New: "3",
+						Old:    "0",
+						New:    "3",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ports.1": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "1",
+						Old:    "",
+						New:    "1",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ports.2": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "2",
+						Old:    "",
+						New:    "2",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ports.5": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "5",
+						Old:    "",
+						New:    "5",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -961,6 +994,7 @@ func TestSchemaMap_Diff(t *testing.T) {
 						Old:         "",
 						New:         "",
 						NewComputed: true,
+						Source:      terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -996,20 +1030,24 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"ports.#": &terraform.ResourceAttrDiff{
-						Old: "2",
-						New: "3",
+						Old:    "2",
+						New:    "3",
+						Source: terraform.DiffSourceConfig | terraform.DiffSourceState,
 					},
 					"ports.1": &terraform.ResourceAttrDiff{
-						Old: "1",
-						New: "1",
+						Old:    "1",
+						New:    "1",
+						Source: terraform.DiffSourceConfig | terraform.DiffSourceState,
 					},
 					"ports.2": &terraform.ResourceAttrDiff{
-						Old: "2",
-						New: "2",
+						Old:    "2",
+						New:    "2",
+						Source: terraform.DiffSourceConfig | terraform.DiffSourceState,
 					},
 					"ports.5": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "5",
+						Old:    "",
+						New:    "5",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -1043,8 +1081,9 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"ports.#": &terraform.ResourceAttrDiff{
-						Old: "2",
-						New: "0",
+						Old:    "2",
+						New:    "0",
+						Source: terraform.DiffSourceState,
 					},
 				},
 			},
@@ -1168,12 +1207,14 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"ingress.#": &terraform.ResourceAttrDiff{
-						Old: "0",
-						New: "1",
+						Old:    "0",
+						New:    "1",
+						Source: terraform.DiffSourceConfig,
 					},
 					"ingress.0.from": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "8080",
+						Old:    "",
+						New:    "8080",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -1320,13 +1361,15 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"config_vars.#": &terraform.ResourceAttrDiff{
-						Old: "0",
-						New: "1",
+						Old:    "0",
+						New:    "1",
+						Source: terraform.DiffSourceConfig,
 					},
 
 					"config_vars.bar": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "baz",
+						Old:    "",
+						New:    "baz",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -1361,10 +1404,12 @@ func TestSchemaMap_Diff(t *testing.T) {
 					"config_vars.foo": &terraform.ResourceAttrDiff{
 						Old:        "bar",
 						NewRemoved: true,
+						Source:     terraform.DiffSourceState,
 					},
 					"config_vars.bar": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "baz",
+						Old:    "",
+						New:    "baz",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -1402,10 +1447,12 @@ func TestSchemaMap_Diff(t *testing.T) {
 						Old:        "bar",
 						New:        "",
 						NewRemoved: true,
+						Source:     terraform.DiffSourceState,
 					},
 					"vars.bar": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "baz",
+						Old:    "",
+						New:    "baz",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -1464,10 +1511,12 @@ func TestSchemaMap_Diff(t *testing.T) {
 					"config_vars.0.foo": &terraform.ResourceAttrDiff{
 						Old:        "bar",
 						NewRemoved: true,
+						Source:     terraform.DiffSourceState,
 					},
 					"config_vars.0.bar": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "baz",
+						Old:    "",
+						New:    "baz",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -1497,20 +1546,24 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"config_vars.#": &terraform.ResourceAttrDiff{
-						Old: "1",
-						New: "0",
+						Old:    "1",
+						New:    "0",
+						Source: terraform.DiffSourceState,
 					},
 					"config_vars.0.#": &terraform.ResourceAttrDiff{
-						Old: "2",
-						New: "0",
+						Old:    "2",
+						New:    "0",
+						Source: terraform.DiffSourceState,
 					},
 					"config_vars.0.foo": &terraform.ResourceAttrDiff{
 						Old:        "bar",
 						NewRemoved: true,
+						Source:     terraform.DiffSourceState,
 					},
 					"config_vars.0.bar": &terraform.ResourceAttrDiff{
 						Old:        "baz",
 						NewRemoved: true,
+						Source:     terraform.DiffSourceState,
 					},
 				},
 			},
@@ -1555,12 +1608,14 @@ func TestSchemaMap_Diff(t *testing.T) {
 						Old:         "bar",
 						New:         "foo",
 						RequiresNew: true,
+						Source:      terraform.DiffSourceConfig | terraform.DiffSourceState,
 					},
 
 					"address": &terraform.ResourceAttrDiff{
 						Old:         "foo",
 						New:         "",
 						NewComputed: true,
+						Source:      terraform.DiffSourceState,
 					},
 				},
 			},
@@ -1606,12 +1661,14 @@ func TestSchemaMap_Diff(t *testing.T) {
 						Old:         "bar",
 						New:         "foo",
 						RequiresNew: true,
+						Source:      terraform.DiffSourceState | terraform.DiffSourceConfig,
 					},
 
 					"ports.#": &terraform.ResourceAttrDiff{
 						Old:         "1",
 						New:         "",
 						NewComputed: true,
+						Source:      terraform.DiffSourceState,
 					},
 				},
 			},
@@ -1651,6 +1708,7 @@ func TestSchemaMap_Diff(t *testing.T) {
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"instances.#": &terraform.ResourceAttrDiff{
 						NewComputed: true,
+						Source:      terraform.DiffSourceConfig | terraform.DiffSourceState,
 					},
 				},
 			},
@@ -1702,16 +1760,19 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"route.#": &terraform.ResourceAttrDiff{
-						Old: "0",
-						New: "1",
+						Old:    "0",
+						New:    "1",
+						Source: terraform.DiffSourceConfig,
 					},
 					"route.~1.index": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "1",
+						Old:    "",
+						New:    "1",
+						Source: terraform.DiffSourceConfig,
 					},
 					"route.~1.gateway": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "${var.foo}",
+						Old:    "",
+						New:    "${var.foo}",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -1769,15 +1830,18 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"route.#": &terraform.ResourceAttrDiff{
-						Old: "0",
-						New: "1",
+						Old:    "0",
+						New:    "1",
+						Source: terraform.DiffSourceConfig,
 					},
 					"route.~1.index": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "1",
+						Old:    "",
+						New:    "1",
+						Source: terraform.DiffSourceConfig,
 					},
 					"route.~1.gateway.#": &terraform.ResourceAttrDiff{
 						NewComputed: true,
+						Source:      terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -1840,6 +1904,7 @@ func TestSchemaMap_Diff(t *testing.T) {
 					"vars.#": &terraform.ResourceAttrDiff{
 						Old:         "",
 						NewComputed: true,
+						Source:      terraform.DiffSourceConfig,
 					},
 				},
 			},
@@ -1881,8 +1946,9 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"some_threshold": &terraform.ResourceAttrDiff{
-						Old: "567.8",
-						New: "12.34",
+						Old:    "567.8",
+						New:    "12.34",
+						Source: terraform.DiffSourceConfig | terraform.DiffSourceState,
 					},
 				},
 			},
@@ -2062,6 +2128,7 @@ func TestSchemaMap_Diff(t *testing.T) {
 						Old:         "1",
 						New:         "0",
 						RequiresNew: true,
+						Source:      terraform.DiffSourceState,
 					},
 				},
 			},
@@ -2088,12 +2155,14 @@ func TestSchemaMap_Diff(t *testing.T) {
 			Diff: &terraform.InstanceDiff{
 				Attributes: map[string]*terraform.ResourceAttrDiff{
 					"vars.#": &terraform.ResourceAttrDiff{
-						Old: "0",
-						New: "1",
+						Old:    "0",
+						New:    "1",
+						Source: terraform.DiffSourceConfig,
 					},
 					"vars.foo": &terraform.ResourceAttrDiff{
-						Old: "",
-						New: "",
+						Old:    "",
+						New:    "",
+						Source: terraform.DiffSourceConfig,
 					},
 				},
 			},

@@ -24,8 +24,14 @@ func (r *MultiLevelFieldReader) ReadFieldExact(
 	address []string, level string) (FieldReadResult, error) {
 	reader, ok := r.Readers[level]
 	if !ok {
-		return FieldReadResult{}, fmt.Errorf(
-			"Unknown reader level: %s", level)
+		err := fmt.Errorf("Unknown reader level: %s", level)
+		for _, l := range r.Levels {
+			if l == level {
+				err = nil
+			}
+		}
+
+		return FieldReadResult{}, err
 	}
 
 	result, err := reader.ReadField(address)

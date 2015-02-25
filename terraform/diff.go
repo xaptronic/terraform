@@ -483,3 +483,7 @@ func (d *InstanceDiff) Same(d2 *InstanceDiff) bool {
 
 	return true
 }
+
+func (s DiffSource) GoString() string {
+	return s.String()
+}

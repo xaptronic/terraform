@@ -323,6 +323,19 @@ func (d *ResourceData) diffChange(
 	return o.Value, n.Value, !reflect.DeepEqual(o.Value, n.Value), n.Computed
 }
 
+// diffSource returns the DiffSource value for a key.
+func (d *ResourceData) diffSource(k string) terraform.DiffSource {
+	var result terraform.DiffSource
+	if d.getRaw(k, getSourceConfig|getSourceExact).Exists {
+		result |= terraform.DiffSourceConfig
+	}
+	if d.getRaw(k, getSourceState|getSourceExact).Exists {
+		result |= terraform.DiffSourceState
+	}
+
+	return result
+}
+
 func (d *ResourceData) getChange(
 	key string,
 	oldLevel getSource,
