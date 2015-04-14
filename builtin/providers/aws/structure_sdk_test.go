@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/awslabs/aws-sdk-go/service/ec2"
+	"github.com/awslabs/aws-sdk-go/service/route53"
 	"github.com/hashicorp/aws-sdk-go/aws"
 	"github.com/hashicorp/aws-sdk-go/gen/elb"
 	"github.com/hashicorp/aws-sdk-go/gen/rds"
@@ -440,5 +441,26 @@ func TestFlattenAttachmentSDK(t *testing.T) {
 
 	if result["attachment_id"] != "at-002" {
 		t.Fatalf("expected attachment_id to be at-002, but got %s", result["attachment_id"])
+	}
+}
+
+func TestFlattenResourceRecords(t *testing.T) {
+	expanded := []*route53.ResourceRecord{
+		&route53.ResourceRecord{
+			Value: aws.String("127.0.0.1"),
+		},
+		&route53.ResourceRecord{
+			Value: aws.String("127.0.0.3"),
+		},
+	}
+
+	result := flattenResourceRecords(expanded)
+
+	if result == nil {
+		t.Fatal("expected result to have value, but got nil")
+	}
+
+	if len(result) != 2 {
+		t.Fatal("expected result to have value, but got nil")
 	}
 }
