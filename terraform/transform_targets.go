@@ -59,6 +59,12 @@ func (t *TargetsTransformer) selectTargetedNodes(
 			continue
 		}
 
+		// Keep all provisioners; they'll be pruned later if necessary
+		if r, ok := v.(GraphNodeProvisioner); ok {
+			targetedNodes.Add(r)
+			continue
+		}
+
 		// For the remaining filter, we only care about addressable nodes
 		r, ok := v.(GraphNodeAddressable)
 		if !ok {
